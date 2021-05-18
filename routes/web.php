@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/',[JsonController::class,'index']);
-Route::post('/',[JsonController::class,'store'])->name('store');
+Route::middleware('translate_locale')->group(function(){
+    Route::get('/',[JsonController::class,'index']);
+    Route::post('/',[JsonController::class,'store'])->name('store');
+    Route::get('locale/{locale}', [JsonController::class, 'changeLocale'])->name('locale');
+});
